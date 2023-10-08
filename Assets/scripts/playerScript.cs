@@ -14,6 +14,7 @@ public class playerScript : MonoBehaviour
     private Rigidbody2D rig;
     private bool isGrounded;
     private Animator anim;
+    private bool shooting;
 
     
 
@@ -78,17 +79,23 @@ public class playerScript : MonoBehaviour
     {
         if (Input.GetButton("Fire1"))
         {
+            
+            
             anim.SetBool("isShooting", true);
             speed = 0;
             StartCoroutine(ShootTimer());
+            
            
             
-            
+
+
+
         }
-        else
+        else if(Input.GetButtonUp("Fire1"))
         {
             anim.SetBool("isShooting", false);
             speed = 5;
+            StopCoroutine(ShootTimer());
         }
     }
 
@@ -96,7 +103,10 @@ public class playerScript : MonoBehaviour
     {
         yield return new WaitForSeconds(0.3f);
         Instantiate(bullet, gun.position, transform.rotation);
-        yield return new WaitForSeconds(2);
+        
+        
+
+        
        
         
 
